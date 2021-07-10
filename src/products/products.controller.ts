@@ -20,8 +20,19 @@ export class ProductsController {
     @Body('desc') desc: string,
     @Body('price') price: number,
     @Body('image') image?: string,
+    @Body('additional')
+    additional?: {
+      status: boolean;
+      note: string;
+    },
   ): Promise<Product> {
-    return this.productService.addProduct(title, desc, price, image);
+    return this.productService.add(
+      title,
+      desc,
+      price,
+      image,
+      additional,
+    );
   }
 
   @Get()

@@ -9,12 +9,22 @@ export class ProductsService {
     @InjectModel('Product') private readonly productModel: Model<Product>,
   ) {}
 
-  addProduct(title: string, desc: string, price: number, image?) {
+  add(
+    title: string,
+    desc: string,
+    price: number,
+    image?: string,
+    additional?: {
+      status: boolean;
+      note: string;
+    },
+  ) {
     const newProd = new this.productModel({
       title,
       description: desc,
       price,
       image,
+      additional,
     });
     return newProd.save();
   }

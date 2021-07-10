@@ -10,6 +10,17 @@ export const ProductSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Category',
   },
+  additional: {
+    type: Object,
+    status: {
+      type: mongoose.Schema.Types.Boolean,
+      default: true,
+    },
+    note: {
+      type: mongoose.Schema.Types.String,
+      default: 'Some side note information about this product',
+    },
+  },
 });
 
 export interface Product extends mongoose.Document {
@@ -19,4 +30,5 @@ export interface Product extends mongoose.Document {
   price: number;
   image: string;
   category: string;
+  additional: Record<string, any>;
 }
