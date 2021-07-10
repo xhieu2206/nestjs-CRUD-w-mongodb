@@ -19,8 +19,9 @@ export class ProductsController {
     @Body('title') title: string,
     @Body('desc') desc: string,
     @Body('price') price: number,
+    @Body('image') image?: string,
   ): Promise<Product> {
-    return this.productService.addProduct(title, desc, price);
+    return this.productService.addProduct(title, desc, price, image);
   }
 
   @Get()
@@ -30,7 +31,7 @@ export class ProductsController {
 
   @Get(':id')
   getProduct(@Param('id') id: string): Promise<Product> {
-    return this.productService.getProduct(id.toString());
+    return this.productService.get(id.toString());
   }
 
   @Patch(':id')
@@ -39,8 +40,9 @@ export class ProductsController {
     @Body('title') title: string,
     @Body('desc') desc: string,
     @Body('price') price: number,
+    @Body('image') image?: string,
   ): Promise<Product> {
-    return this.productService.updateProduct(id, title, desc, price);
+    return this.productService.updateProduct(id, title, desc, price, image);
   }
 
   @Delete(':id')

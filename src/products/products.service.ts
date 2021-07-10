@@ -8,13 +8,13 @@ export class ProductsService {
   constructor(
     @InjectModel('Product') private readonly productModel: Model<Product>,
   ) {}
-  private products: Product[] = [];
 
-  addProduct(title: string, desc: string, price: number) {
+  addProduct(title: string, desc: string, price: number, image?) {
     const newProd = new this.productModel({
       title,
       description: desc,
       price,
+      image,
     });
     return newProd.save();
   }
@@ -23,7 +23,7 @@ export class ProductsService {
     return this.productModel.find().exec();
   }
 
-  async getProduct(id: string): Promise<Product> {
+  async get(id: string): Promise<Product> {
     let product;
     try {
       product = await this.productModel.findById(id);
@@ -40,16 +40,18 @@ export class ProductsService {
     title: string,
     description: string,
     price: number,
+    image?: string,
   ): Promise<Product> {
-    const updateProduct = await this.getProduct(id);
+    const updateProduct = await this.get(id);
     updateProduct.title = title;
     updateProduct.description = description;
     updateProduct.price = price;
+    updateProduct.image = image;
     return updateProduct.save();
   }
 
   async removeProduct(id: string): Promise<Product> {
-    const product = await this.getProduct(id);
+    const product = await this.get(id);
     return product.remove();
   }
 }
